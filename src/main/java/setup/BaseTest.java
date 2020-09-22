@@ -2,21 +2,31 @@ package setup;
 
 import io.appium.java_client.AppiumDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.testng.annotations.*;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import pageObjects.PageObject;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 public class BaseTest implements IDriver {
 
     private static AppiumDriver appiumDriver; // singleton
-    IPageObject po;
+    private static IPageObject po;
+    private static Properties testData;
 
     @Override
-    public AppiumDriver getDriver() { return appiumDriver; }
+    public AppiumDriver getDriver() {
+        return appiumDriver;
+    }
 
     public IPageObject getPo() {
         return po;
@@ -28,6 +38,7 @@ public class BaseTest implements IDriver {
         System.out.println("Before: app type - "+appType);
         setAppiumDriver(platformName, deviceName, browserName, app);
         setPageObject(appType, appiumDriver);
+        setUpDataManagement();
 
     }
 
@@ -63,5 +74,23 @@ public class BaseTest implements IDriver {
         po = new PageObject(appType, appiumDriver);
     }
 
+
+    private void setUpDataManagement() {
+        testData = new Properties();
+
+        try(FileInputStream dataStream =
+                    new FileInputStream(new File("src/main/resources/app.properties"))) {
+            testData.load(dataStream);
+        } catch (FileNotFoundException e) {
+            System.out.println(e.getMessage() + " " + "File with test data wasn't found");
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getTestData(String dataName) {
+        return testData.getProperty(dataName);
+    }
 
 }
