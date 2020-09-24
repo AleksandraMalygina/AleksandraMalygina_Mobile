@@ -1,0 +1,8 @@
+The way to provide test application with personal identifier (API key) 
+is to refer to this key as to a variable saved outside the project.
+
+My solution is to save personal key as an environment variable named MOBILE_CLOUD_EPAM_API_KEY
+on your computer and refer to this variable from project's POM file (${env.MOBILE_CLOUD_EPAM_API_KEY}) 
+
+In this case the project won't have to be recompiled each time token is changed.
+Plus no secrets won't be stored in public repos.
