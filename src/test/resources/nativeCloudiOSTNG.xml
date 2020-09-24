@@ -5,6 +5,7 @@
 <!--    iPhone 8 Plus iOS 12.4-->
     <parameter name="platformName" value="iOS"></parameter>
     <parameter name="bundleId" value="com.epam.EPAMTestApp.ii"></parameter>
+    <parameter name="deviceLocation" value="remote"></parameter>
     <test name="Native Cloud iOS tests">
         <groups>
             <run>

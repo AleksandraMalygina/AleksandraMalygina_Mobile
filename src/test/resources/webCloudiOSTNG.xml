@@ -4,6 +4,7 @@
     <parameter name="udid" value="3e50758dd2e1179a014ee7b51dc4285d73118107"></parameter>
     <parameter name="platformName" value="iOS"></parameter>
     <parameter name="browserName" value="Safari"></parameter>
+    <parameter name="deviceLocation" value="remote"></parameter>
     <test name="Web Cloud iOS tests">
         <groups>
             <run>
