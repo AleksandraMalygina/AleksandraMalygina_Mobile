@@ -1,7 +1,6 @@
 package scenarios;
 
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -42,7 +41,13 @@ public class webMobileTests extends BaseTest {
 
         getPo().getWelement("searchField")
                 .sendKeys(getTestData("searchText"));
-        getPo().getWelement("searchField").sendKeys(Keys.ENTER);
+        getPo().getWelement("searchField").submit();
+
+        new WebDriverWait(getDriver(), 60).until(
+                wd -> ((JavascriptExecutor) wd)
+                        .executeScript("return document.readyState")
+                        .equals("complete")
+        );
 
         List<WebElement> resultsList = getPo().getWelements("searchResults");
 
@@ -54,7 +59,9 @@ public class webMobileTests extends BaseTest {
         }
         System.out.println("Check 2 : " + getPo().getWelements("searchResults").size());
 
-       Assert.assertFalse(resultsList.isEmpty());
+        Assert.assertFalse(resultsList.isEmpty());
+
+        System.out.println("Test Finished");
 
     }
 

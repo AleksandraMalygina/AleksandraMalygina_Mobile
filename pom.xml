@@ -10,6 +10,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <token>${env.MOBILE_CLOUD_EPAM_API_KEY}</token>
     </properties>
 
     <dependencies>
@@ -22,6 +23,12 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.16.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -36,7 +43,8 @@
                         <suiteXmlFile>${suite.file}</suiteXmlFile>
                     </suiteXmlFiles>
                     <systemPropertyVariables>
-                        <ts.appium>http://localhost:4723/wd/hub</ts.appium>
+<!--                        <ts.appium>http://localhost:4723/wd/hub</ts.appium>-->
+                        <ts.appium>https://EPM-TSTF:${token}@mobilecloud.epam.com/wd/hub</ts.appium>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -72,7 +80,51 @@
                 <suite.file>./src/test/resources/webTNG.xml</suite.file>
             </properties>
         </profile>
+
+        <profile>
+            <id>webCloudAndroid</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <suite.file>./src/test/resources/webCloudAndroidTNG.xml</suite.file>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>webCloudiOS</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <suite.file>./src/test/resources/webCloudiOSTNG.xml</suite.file>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>nativeCloudAndroid</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <suite.file>src/test/resources/nativeCloudAndroidTNG.xml</suite.file>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>nativeCloudiOS</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <suite.file>src/test/resources/nativeCloudiOSTNG.xml</suite.file>
+            </properties>
+        </profile>
+
+
     </profiles>
+
+
 
 
 </project>

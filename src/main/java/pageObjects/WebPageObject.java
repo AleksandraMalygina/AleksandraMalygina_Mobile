@@ -12,7 +12,7 @@ public class WebPageObject  {
     @FindBy(xpath = "//input[@name ='q']")
     WebElement searchField;
 
-    @FindBy(xpath = "//h1[text() = 'Результаты поиска']/parent::div/div/div[@data-hveid]")
+    @FindBy(xpath = "//div[@class='main']/*//div[@data-async-context]/div[@data-hveid]")
     public List<WebElement> searchResults;
 
     public WebPageObject(AppiumDriver appiumDriver) {

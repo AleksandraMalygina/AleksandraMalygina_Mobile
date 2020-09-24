@@ -1,8 +1,8 @@
 package scenarios;
 
-import org.testng.Assert;
 import org.testng.annotations.Test;
 import setup.BaseTest;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class nativeMobileTests extends BaseTest {
 
@@ -36,9 +36,10 @@ public class nativeMobileTests extends BaseTest {
 
         getPo().getWelement("signInBtn").click();
 
-        Assert.assertEquals(getPo().getWelement("BudgetPageHeading").getText(),
-                                                getTestData("budgetPageName"));
 
+        assertThat(getPo().getWelement("BudgetPageHeading").getText())
+                .containsIgnoringCase(getTestData("budgetPagePartialName"));
+        System.out.println("Test Finished");
     }
 
 }
